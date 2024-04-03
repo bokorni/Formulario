@@ -3,14 +3,14 @@ import { reactive, ref } from 'vue';
 
 const titulo = ref('Oi Vuejs');
 const mostrarResult = ref(false);
-const produto = reactive(
-  {
-    nome: '',
-    preco: 0,
-    quantidade: 0,
-    categoria:[]
-  }
-)
+const categorias = ['Eletronicos', 'Moveis', 'Vestuario', 'Brinquedo'];
+const produto = reactive({
+  nome: '',
+  preco: 0,
+  quantidade: 0,
+  categorias: []
+
+})
 </script>
 
 <template>
@@ -19,32 +19,53 @@ const produto = reactive(
     <div class="formulario">
       <h2>formulario</h2>
       <input type="text" v-model="titulo">
+      <div class="row">
+        <label for="">Nome:</label>
+        <input type="text" v-model="produto.nome">
+      </div>
+
+      <div class="row">
+        <label for="">Preço:</label>
+        <input type="text" v-model="produto.preco">
+      </div>
+
+      <div class="row">
+        <label for="">Quantidade:</label>
+        <input type="text" v-model="produto.quantidade">
+      </div>
+
+      <div class="row">
+        <label for="">Categoria:</label>
+        <input type="text" v-model="produto.categoria">
+      </div> 
+
+      <fieldset>
+        <Legend>categorias</Legend>
+        <div class="items-checkbox">
+          
+          <template v-for="categoria in categorias" :key="categoria">
+            <input type="checkbox" :value="categoria" v-model="produto.categorias" /> {{ categoria }}
+          </template>
+        </div>
+      </fieldset>
+      <button @click="mostrarResult = !mostrarResult">Mostrar</button>
+      </div>
+      <div class="result">
+
+        <div v-if="mostrarResult" class="result">
+          <h2>Dados do produto</h2>
+          <p>Nome:{{ produto.nome }}</p>
+          <p>Preço:{{ produto.preco }}</p>
+          <p>Em estoque:{{ produto.quantidade }} </p>
+          <p>Categoria: {{ produto.categorias }}</p>
+          <p v-for="categoria in produto.categorias" :key="categoria"></p>
+          <p>{{ mostrarResult }}</p>
+        </div>
+       
+      </div>
     </div>
-    <div class="row">
-      <label for="">Nome:</label>
-      <input type="text">
-    </div>
-    <div class="row">
-      <label for="">Preço:</label>
-      <input type="text">
-    </div>
-    <div class="row">
-      <label for=""></label>
-      <input type="text">
-    </div>
-    <div v-if="mostrarResult" class="result">
-      <h2>Dados do produto</h2>
-      <p>Nome:{{ produto.nome }}</p>
-      <p>Preço:{{ produto.preco }}</p>
-      <p>Em estoque:{{ produto.quantidade }} </p>
-      <p>Comprados: {{ produto.categoria }}</p>
-    </div>
-  </div>
-  <div>
-    <div>
-      <h1>Oi</h1>
-    </div>
-  </div>
+   
+
 </template>
 
 <style scoped>
@@ -60,6 +81,7 @@ const produto = reactive(
   width: 45vw;
   min-height: 70vh;
   border-radius: 20px;
+  padding: 20px;
 }
 
 .formulario {
@@ -67,12 +89,12 @@ const produto = reactive(
 
 }
 
-.formulario 
-.row {
+.formulario .row {
   margin: 1.3rem 0;
   display: flex;
-  width: 80%;
+  flex-direction: column;
   justify-content: space-between;
+  width: 80%;
 }
 
 .result {
