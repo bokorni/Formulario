@@ -2,8 +2,8 @@
 import { reactive, ref } from 'vue';
 
 
-const mostrarResult = ref(false);
-const linguagens = ['', '', '', ''];
+const mostrarResult = ref(true);
+const linguagens = ['Python', 'C#','C++', 'JavaScript', 'PHP', 'Swift', 'Java', 'Go', 'SQL', 'Ruby',];
 const infos = reactive({
   nome: '',
   email: '',
@@ -15,34 +15,35 @@ const infos = reactive({
   hobbies: '',
   biografia: ''
 })
-const estado = ref([
-  { uf: 'AC', name: 'Acre' },
-  { uf: 'AL', name: 'Alagoas' },
-  { uf: 'AP', name: 'Amapá' },
-  { uf: 'AM', name: 'Amazonas' },
-  { uf: 'BA', name: 'Bahia' },
-  { uf: 'CE', name: 'Ceará' },
-  { uf: 'DF', name: 'Distrito Federal' },
-  { uf: 'ES', name: 'Espírito Santo' },
-  { uf: 'GO', name: 'Goiás' },
-  { uf: 'MA', name: 'Maranhão' },
-  { uf: 'MT', name: 'Mato Grosso' },
-  { uf: 'MS', name: 'Mato Grosso do Sul' },
-  { uf: 'MG', name: 'Minas Gerais' },
-  { uf: 'PA', name: 'Pará' },
-  { uf: 'PB', name: 'Paraíba' },
-  { uf: 'PR', name: 'Paraná' },
-  { uf: 'PE', name: 'Pernambuco' },
-  { uf: 'PI', name: 'Piauí' },
-  { uf: 'RJ', name: 'Rio de Janeiro' },
-  { uf: 'RN', name: 'Rio Grande do Norte' },
-  { uf: 'RS', name: 'Rio Grande do Sul' },
-  { uf: 'RO', name: 'Rondônia' },
-  { uf: 'RR', name: 'Roraima' },
-  { uf: 'SC', name: 'Santa Catarina' },
-  { uf: 'SP', name: 'São Paulo' },
-  { uf: 'SE', name: 'Sergipe' },
-  { uf: 'TO', name: 'Tocantins' }
+const estado = ref('');
+const states= ref([
+  { uf: 'AC -', name: 'Acre' },
+  { uf: 'AL -', name: 'Alagoas' },
+  { uf: 'AP -', name: 'Amapá' },
+  { uf: 'AM -', name: 'Amazonas' },
+  { uf: 'BA -', name: 'Bahia' },
+  { uf: 'CE -', name: 'Ceará' },
+  { uf: 'DF -', name: 'Distrito Federal' },
+  { uf: 'ES -', name: 'Espírito Santo' },
+  { uf: 'GO -', name: 'Goiás' },
+  { uf: 'MA -', name: 'Maranhão' },
+  { uf: 'MT -', name: 'Mato Grosso' },
+  { uf: 'MS -', name: 'Mato Grosso do Sul' },
+  { uf: 'MG -', name: 'Minas Gerais' },
+  { uf: 'PA -', name: 'Pará' },
+  { uf: 'PB -', name: 'Paraíba' },
+  { uf: 'PR -', name: 'Paraná' },
+  { uf: 'PE -', name: 'Pernambuco' },
+  { uf: 'PI -', name: 'Piauí' },
+  { uf: 'RJ -', name: 'Rio de Janeiro' },
+  { uf: 'RN -', name: 'Rio Grande do Norte' },
+  { uf: 'RS -', name: 'Rio Grande do Sul' },
+  { uf: 'RO -', name: 'Rondônia' },
+  { uf: 'RR -', name: 'Roraima' },
+  { uf: 'SC -', name: 'Santa Catarina' },
+  { uf: 'SP -', name: 'São Paulo' },
+  { uf: 'SE -', name: 'Sergipe' },
+  { uf: 'TO -', name: 'Tocantins' }
 ]);
 </script>
 
@@ -51,7 +52,7 @@ const estado = ref([
   <div class="container">
     <div class="formulario">
       <h2>Cadastre-se</h2>
-      <input type="text" v-model="titulo">
+       
       <div class="row">
         <label for="">Nome:</label>
         <input type="text" v-model="infos.nome">
@@ -86,14 +87,21 @@ const estado = ref([
       <div class="row">
         <label for="text">Estado:</label>
         <select name="estados" id="estados" v-model="estado"> 
-          <option value="estado.uf" v-for="(estado) in estados" :key="estado.uf">{{ estado.name }}</option>
+          <option value="state.uf" v-for="state in states" :key="state.uf"> {{ state.uf }} {{ state.name }} </option>
         </select>
       </div>
-          
+      <div class="row">
+        <label for="">Hobbies:</label>
+        <input type="text" v-model="infos.hobbies">
+      </div>
+      <div class="row">
+        <label for="">Biografia:</label>
+        <input type="text" v-model="infos.biografia">
+      </div>
 
 
       <fieldset>
-        <Legend>linguagens</Legend>
+        <Legend>Linguagens</Legend>
         <div class="items-checkbox">
 
           <template v-for="linguagem in linguagens" :key="linguagem">
@@ -108,10 +116,10 @@ const estado = ref([
       <div v-if="mostrarResult" class="result">
         <h2>Informações</h2>
         <p>Nome:{{ infos.nome }}</p>
-        <p>Preço:{{ infos.preco }}</p>
-        <p>Em estoque:{{ infos.quantidade }} </p>
-        <p>Categoria: {{ infos.categorias }}</p>
-        <p v-for="linguagem in infos.linguagens" :key="linguagem"></p>
+        <p>E-mail:{{ infos.email }}</p>
+        <p>Senha:{{ infos.senha }} </p>
+        <p>Data de nascimento: {{ infos.data }}</p>
+        <p v-for="linguagem in infos.linguagens" :key="linguagem">Linguagens de programação preferidas</p>
         <p>{{ mostrarResult }}</p>
       </div>
 
@@ -122,6 +130,10 @@ const estado = ref([
 </template>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Amarante&display=swap');
+*{
+  font-family: "Amarante", serif;
+}
 .container {
   display: flex;
   gap: 2rem;
@@ -153,4 +165,5 @@ const estado = ref([
 .result {
   background-color: rgb(114, 211, 114);
 }
+ 
 </style>
