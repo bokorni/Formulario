@@ -1,5 +1,17 @@
 <script setup>
 import { reactive, ref } from 'vue';
+const linguagens = ref('');
+function addlang() {
+  if (linguagens.value == '') {
+    alert('Preencha o campo')
+
+  }
+  else {
+    infos.linguagens.push(linguagens.value)
+    linguagens.value = ''
+  }
+
+}
 
 const mostrarResult = ref(true)
 const infos = reactive({
@@ -100,7 +112,12 @@ const states = reactive([
       </div>
       <div class="row">
         <label for="">Diga quais são suas linguagens preferidas:</label>
-        <input type="text" v-model="infos.linguagens">
+        <input type="text" v-model="linguagens">
+        
+        <div class="botao">
+          <button @click="addlang">Enviar</button>
+
+        </div>
       </div>
 
 
@@ -113,7 +130,7 @@ const states = reactive([
     </div>
     <div class="result">
 
-
+      <p>@bokorn1</p>
 
     </div>
   </div>
@@ -128,8 +145,11 @@ const states = reactive([
     <p>Cidade: {{ infos.cidade }}</p>
     <p>Hobbies: {{ infos.hobbies }}</p>
     <p>Biografia:{{ infos.biografia }}</p>
+    <div class="language">
+      <p>Linguagens:</p>
+      <p v-for="langs in infos.linguagens" :key="langs"> {{ langs  }}</p>
+    </div>
 
-    <p>{{ mostrarResult }}</p>
     <button @click="mostrarResult = true">Voltar</button>
   </div>
 
@@ -141,15 +161,21 @@ const states = reactive([
 * {
   font-family: "Amarante", serif;
 }
-
+.botao
+  {
+   
+  display: flex;
+  justify-content: center;
+  padding: 3vw;
+  
+  border: none;
+  color: rgb(20, 250, 70);
+ 
+}
 .container {
   width: 50vw;
   padding: 40px;
   border-radius: 20px;
-  border: 8px solid #223243;
-  box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.1), 5px 5px 15px rgba(0, 0, 0, 0.35),
-    inset -5px -5px 15px rgba(255, 255, 255, 0.1), 5px 5px 15px rgba(0, 0, 0, 0.35),
-    inset -5px -5px 15px rgba(255, 255, 255, 0.1), 5px 5px 15px rgba(0, 0, 0, 0.35);
 }
 
 h2 {
@@ -197,11 +223,26 @@ label {
 }
 
 
+.result {
+  width: 50vw;
+  padding: 40px;
+  border-radius: 20px;
+  border: 8px solid #223243;
+  box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.1), 5px 5px 15px rgba(0, 0, 0, 0.35),
+    inset -5px -5px 15px rgba(255, 255, 255, 0.1), 5px 5px 15px rgba(0, 0, 0, 0.35),
+    inset -5px -5px 15px rgba(255, 255, 255, 0.1), 5px 5px 15px rgba(0, 0, 0, 0.35);
+  width: 60vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 25px;
+  color: #FFF
+}
 
 
 
-
-.container,
+ 
 .formulario {
   padding: 12px 10px 12px 48px;
   border: none;
@@ -227,7 +268,9 @@ select {
   padding: 12px 10px 12px 48px;
   border: none;
   color: rgb(255, 255, 255);
-};
+}
+
+;
 
 
 .check {
