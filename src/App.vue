@@ -1,9 +1,7 @@
 <script setup>
 import { reactive, ref } from 'vue';
 
-
-const mostrarResult = ref(true);
-const linguagens = ['Python', 'C#', 'C++', 'JavaScript', 'PHP', 'Swift', 'Java', 'Go', 'SQL', 'Ruby',];
+const mostrarResult = ref(true)
 const infos = reactive({
   nome: '',
   email: '',
@@ -13,7 +11,8 @@ const infos = reactive({
   endereco: '',
   cidade: '',
   hobbies: '',
-  biografia: ''
+  biografia: '',
+  linguagens: []
 })
 const estado = ref('');
 const states = reactive([
@@ -49,7 +48,7 @@ const states = reactive([
 
 <template>
   <h2>{{ titulo }}</h2>
-  <div class="container">
+  <div class="container" v-if="mostrarResult">
     <div class="formulario">
       <h2>Cadastre-se</h2>
 
@@ -99,40 +98,40 @@ const states = reactive([
         <label for="">Biografia:</label>
         <input type="text" v-model="infos.biografia">
       </div>
-
-
-
-      <Legend>Linguagens preferidas:</Legend>
-      <div class="items-checkbox">
-
-
-        <template v-for="linguagem in linguagens" :key="linguagem">
-
-          <input type="radio" :value="linguagem" v-model="infos.linguagens" /> {{ linguagem }}
-        </template>
+      <div class="row">
+        <label for="">Diga quais são suas linguagens preferidas:</label>
+        <input type="text" v-model="infos.linguagens">
       </div>
+
+
+
+
+
+
 
       <button @click="mostrarResult = !mostrarResult">Mostrar</button>
     </div>
     <div class="result">
 
-      <div v-if="mostrarResult" class="result">
-        <h2>Informações</h2>
-        <p>Nome:{{ infos.nome }}</p>
-        <p>E-mail:{{ infos.email }}</p>
-        <p>Senha:{{ infos.senha }} </p>
-        <p>Data de nascimento: {{ infos.data }}</p>
-        <p>Endereço: {{ infos.endereco }}</p>
-        <p>Cidade: {{ infos.cidade }}</p>
-        <p>Hobbies: {{ infos.hobbies }}</p>
-        <p>Biografia:{{ infos.biografia }}</p>
-        <p v-for="linguagem in linguagens" :key="linguagem"></p>
-        <p>{{ mostrarResult }}</p>
-      </div>
+
 
     </div>
   </div>
 
+  <div v-else class="result">
+    <h2>Informações</h2>
+    <p>Nome:{{ infos.nome }}</p>
+    <p>E-mail:{{ infos.email }}</p>
+    <p>Senha:{{ infos.senha }} </p>
+    <p>Data de nascimento: {{ infos.data }}</p>
+    <p>Endereço: {{ infos.endereco }}</p>
+    <p>Cidade: {{ infos.cidade }}</p>
+    <p>Hobbies: {{ infos.hobbies }}</p>
+    <p>Biografia:{{ infos.biografia }}</p>
+
+    <p>{{ mostrarResult }}</p>
+    <button @click="mostrarResult = true">Voltar</button>
+  </div>
 
 </template>
 
@@ -144,6 +143,7 @@ const states = reactive([
 }
 
 .container {
+  width: 50vw;
   padding: 40px;
   border-radius: 20px;
   border: 8px solid #223243;
@@ -158,10 +158,15 @@ h2 {
   margin-top: 1rem;
 }
 
-.formulario {}
+
+
+label {
+  color: rgb(20, 250, 70)
+}
 
 .container,
 .formulario {
+  width: 60vw;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -170,7 +175,7 @@ h2 {
 }
 
 .container .formulario h2 {
-  color: #FFF;
+  color: rgb(20, 250, 70);
   font-weight: 500;
   letter-spacing: 0.1rem;
 }
@@ -179,7 +184,7 @@ h2 {
 .formulario,
 .row {
   position: relative;
-  width: 300px;
+  width: 100vw;
 
 }
 
@@ -191,24 +196,16 @@ h2 {
   width: 80%;
 }
 
-.result {}
+
+
+
+
 
 .container,
-.formulario,
-.row {
-  position: relative;
-  width: 300px;
-
-}
-
-.container,
-.formulario,
-.row,
-input,
-select {
+.formulario {
   padding: 12px 10px 12px 48px;
   border: none;
-  width: 100%;
+  width: 60vw;
   background: #223243;
   border: 1px solid rgba(0, 0, 0, 0.1);
   color: #FFF;
@@ -219,12 +216,36 @@ select {
   transition: 0.5s;
   outline: none;
 
-  
 }
 
-.formulario .itens-checkbox {
+input,
+select {
+  background: #223243;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 25px;
+  box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.1), 5px 5px 15px rgba(0, 0, 0, 0.35);
+  padding: 12px 10px 12px 48px;
+  border: none;
+  color: rgb(255, 255, 255);
+};
+
+
+.check {
+  width: 2vw;
+}
+
+.items-checkbox {
   display: flex;
   flex-direction: column;
-  align-items: center;
+}
+
+button {
+  background: #223243;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 25px;
+  box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.1), 5px 5px 15px rgba(0, 0, 0, 0.35);
+  padding: 12px 10px 12px 10px;
+  border: none;
+  color: rgb(20, 250, 70);
 }
 </style>
