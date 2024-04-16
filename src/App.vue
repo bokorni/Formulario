@@ -3,7 +3,7 @@ import { reactive, ref } from 'vue';
 
 
 const mostrarResult = ref(true);
-const linguagens = ['Python', 'C#','C++', 'JavaScript', 'PHP', 'Swift', 'Java', 'Go', 'SQL', 'Ruby',];
+const linguagens = ['Python', 'C#', 'C++', 'JavaScript', 'PHP', 'Swift', 'Java', 'Go', 'SQL', 'Ruby',];
 const infos = reactive({
   nome: '',
   email: '',
@@ -16,7 +16,7 @@ const infos = reactive({
   biografia: ''
 })
 const estado = ref('');
-const states= ref([
+const states = reactive([
   { uf: 'AC -', name: 'Acre' },
   { uf: 'AL -', name: 'Alagoas' },
   { uf: 'AP -', name: 'Amapá' },
@@ -52,7 +52,8 @@ const states= ref([
   <div class="container">
     <div class="formulario">
       <h2>Cadastre-se</h2>
-       
+
+
       <div class="row">
         <label for="">Nome:</label>
         <input type="text" v-model="infos.nome">
@@ -86,7 +87,7 @@ const states= ref([
       </div>
       <div class="row">
         <label for="text">Estado:</label>
-        <select name="estados" id="estados" v-model="estado"> 
+        <select name="estados" id="estados" v-model="estado">
           <option value="state.uf" v-for="state in states" :key="state.uf"> {{ state.uf }} {{ state.name }} </option>
         </select>
       </div>
@@ -100,15 +101,17 @@ const states= ref([
       </div>
 
 
-      <fieldset>
-        <Legend>Linguagens</Legend>
-        <div class="items-checkbox">
 
-          <template v-for="linguagem in linguagens" :key="linguagem">
-            <input type="checkbox" :value="linguagem" v-model="infos.linguagens" /> {{ linguagem }}
-          </template>
-        </div>
-      </fieldset>
+      <Legend>Linguagens preferidas:</Legend>
+      <div class="items-checkbox">
+
+
+        <template v-for="linguagem in linguagens" :key="linguagem">
+
+          <input type="radio" :value="linguagem" v-model="infos.linguagens" /> {{ linguagem }}
+        </template>
+      </div>
+
       <button @click="mostrarResult = !mostrarResult">Mostrar</button>
     </div>
     <div class="result">
@@ -119,7 +122,11 @@ const states= ref([
         <p>E-mail:{{ infos.email }}</p>
         <p>Senha:{{ infos.senha }} </p>
         <p>Data de nascimento: {{ infos.data }}</p>
-        <p v-for="linguagem in infos.linguagens" :key="linguagem">Linguagens de programação preferidas</p>
+        <p>Endereço: {{ infos.endereco }}</p>
+        <p>Cidade: {{ infos.cidade }}</p>
+        <p>Hobbies: {{ infos.hobbies }}</p>
+        <p>Biografia:{{ infos.biografia }}</p>
+        <p v-for="linguagem in linguagens" :key="linguagem"></p>
         <p>{{ mostrarResult }}</p>
       </div>
 
@@ -131,26 +138,48 @@ const states= ref([
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Amarante&display=swap');
-*{
+
+* {
   font-family: "Amarante", serif;
 }
+
 .container {
+  padding: 40px;
+  border-radius: 20px;
+  border: 8px solid #223243;
+  box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.1), 5px 5px 15px rgba(0, 0, 0, 0.35),
+    inset -5px -5px 15px rgba(255, 255, 255, 0.1), 5px 5px 15px rgba(0, 0, 0, 0.35),
+    inset -5px -5px 15px rgba(255, 255, 255, 0.1), 5px 5px 15px rgba(0, 0, 0, 0.35);
+}
+
+h2 {
   display: flex;
-  gap: 2rem;
   justify-content: center;
   margin-top: 1rem;
 }
 
-.formulario,
-.result {
-  width: 45vw;
-  min-height: 70vh;
-  border-radius: 20px;
-  padding: 20px;
+.formulario {}
+
+.container,
+.formulario {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 25px;
 }
 
-.formulario {
-  background-color: rgb(224, 63, 57);
+.container .formulario h2 {
+  color: #FFF;
+  font-weight: 500;
+  letter-spacing: 0.1rem;
+}
+
+.container,
+.formulario,
+.row {
+  position: relative;
+  width: 300px;
 
 }
 
@@ -162,8 +191,40 @@ const states= ref([
   width: 80%;
 }
 
-.result {
-  background-color: rgb(114, 211, 114);
+.result {}
+
+.container,
+.formulario,
+.row {
+  position: relative;
+  width: 300px;
+
 }
- 
+
+.container,
+.formulario,
+.row,
+input,
+select {
+  padding: 12px 10px 12px 48px;
+  border: none;
+  width: 100%;
+  background: #223243;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: #FFF;
+  font-weight: 300;
+  border-radius: 25px;
+  font-size: 1em;
+  box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.1), 5px 5px 15px rgba(0, 0, 0, 0.35);
+  transition: 0.5s;
+  outline: none;
+
+  
+}
+
+.formulario .itens-checkbox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 </style>
