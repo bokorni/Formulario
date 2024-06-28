@@ -1,19 +1,21 @@
 <script setup>
 import { reactive, ref } from 'vue';
 const linguagens = ref('');
-function addlang() {
-  if (linguagens.value == '') {
-    alert('Preencha o campo')
 
+const mostrarResult = ref(true)
+function addlang() {
+  if (linguagens.value == '' || !infos.email.includes('@')) {
+    alert('Preencha o campo')
   }
   else {
     infos.linguagens.push(linguagens.value)
+    infos.email = emailV.value
     linguagens.value = ''
+    mostrarResult.value = !mostrarResult.value
   }
 
 }
-
-const mostrarResult = ref(true)
+const senhaV = infos.senha.value()
 const infos = reactive({
   nome: '',
   email: '',
@@ -120,13 +122,6 @@ const states = reactive([
         </div>
       </div>
 
-
-
-
-
-
-
-      <button @click="mostrarResult = !mostrarResult">Mostrar</button>
     </div>
     <div class="result">
 
