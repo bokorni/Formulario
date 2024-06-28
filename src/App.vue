@@ -4,8 +4,8 @@ const linguagens = ref('');
 
 const mostrarResult = ref(true)
 function addlang() {
-  if (linguagens.value == '' || !infos.email.includes('@')) {
-    alert('Preencha o campo')
+  if (linguagens.value == '' || !infos.email.includes('@') || infos.confirma != infos.senha) {
+    alert('Preencha todos campo CORRETAMENTE')
   }
   else {
     infos.linguagens.push(linguagens.value)
@@ -15,7 +15,6 @@ function addlang() {
   }
 
 }
-const senhaV = infos.senha.value()
 const infos = reactive({
   nome: '',
   email: '',
@@ -28,6 +27,8 @@ const infos = reactive({
   biografia: '',
   linguagens: []
 })
+
+
 const estado = ref('');
 const states = reactive([
   { uf: 'AC -', name: 'Acre' },
@@ -85,6 +86,7 @@ const states = reactive([
       <div class="row">
         <label for="">Confirmação de senha:</label>
         <input type="password" v-model="infos.confirma">
+      
       </div>
       <div class="row">
         <label for="">Data de nascimento:</label>
