@@ -9,7 +9,6 @@ function addlang() {
   }
   else {
     infos.linguagens.push(linguagens.value)
-    infos.email = emailV.value
     linguagens.value = ''
     mostrarResult.value = !mostrarResult.value
   }
